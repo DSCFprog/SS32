@@ -9,6 +9,8 @@ development as its slower than PC32 due to it being written on C exclusively
 but instead it aims for portability and to ease the distribution efforts of
 any applications written on the BANDIT
 
+Please refer to SS32cheat.pdf for an overview of the architecture
+
 # Hardware Features
 1:1 compatibility with FPGA version(unreleased) rated to run at 130Mhz on an
 Artix A100 included with the BANDIT
