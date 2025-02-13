@@ -1,0 +1,77 @@
+
+
+
+## SS32 Minimal Instruction Set Computer ColorFORTH PC emulator
+
+This is a functional version of the SS32 architecture for the BANDIT Keyboard
+Computer dscf.co.uk/BANDIT This version is not intended for full time
+development as its slower than PC32 due to it being written on C exclusively
+but instead it aims for portability and to ease the distribution efforts of
+any applications written on the BANDIT
+
+# Hardware Features
+1:1 compatibility with FPGA version(unreleased) rated to run at 130Mhz on an
+Artix A100 included with the BANDIT
+VGA 640x480 8bit color display
+512KBytes SRAM
+4MBytes of battery backed(file backed in this case) memory for source code etc
+60Mbytes of SDRAM mapped onto memory bus
+
+# Software Features
+SS32 assembler
+Editor included written in SS32 assembler
+Entire system including inner compiler, assembler and editor in 18 1024Kbyte blocks
+Works in windows built via CodeBlocks via cbp project file
+
+# Quirks
+* Processor is word addressed most of the time, that means an addresses must be
+multiplied by 4 when 8bit addressing is enabled
+* No file accesses, compared to PC32 that had an entire C interface SS32 has
+	none, at boot it loads a data.res file into DRAM address space and thats it
+	for files, saving and such must be written to battery backed SRAM to be
+	saved between power cycles
+
+# Resource Packer
+Respack is a program I use to build data.res files for packing files onto a
+linear filesystem that is easy to travel, it works more as ROM as its a read
+only filesystem
+Use it by calling respack dir with dir being the directory where your files
+are, for more information on how to use it please check this video where I go
+in depth on building the filesystem and using it:
+https://youtu.be/pto5nxROI4k
+
+or check https://dscf.co.uk/tutorials for PC32 tutorials, both SS32 and PC32
+are very similar minus the addressing quirk so tutorials are largely
+interchangeable until I make SS32 specific video tutorials
+
+# Booting Process
+Running SS32 is very easy, just put BLK.ROM on the directory you want to run
+it and call the executable from that directory, you can put the executable in
+you path so it can be called from the command line
+Aside from that it boots in semi full screen so you might want to pass the -w
+flag so its windowed
+Passing a filename without any '-' characters will load that instead of
+BLK.ROM
+If SS32 finds a data.res file in the same directory it will load it at the
+start of DRAM at 0x100000
+SS32 boots by default on block 29 which is a shadow block(documentation) with
+some info on the controls of the editor
+When you press F5 it will save BLK.ROM then execute the block your're
+currently editing, so its wise to keep a copy of a working BLK.ROM saved
+somewhere as a backup
+
+# Roadmap
+Next in line of implementation are:
+DMA
+Sound
+GPU
+Those will be first implemented in hardware and then ported to the emulator
+as kinks are ironed out 
+
+Currently am working on getting the BANDIT into production, you can follow
+progress on my patreon blog at patreon.com/DSCF
+Proper demos will be coming in the future
+
+
+
+
